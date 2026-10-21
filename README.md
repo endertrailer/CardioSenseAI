@@ -9,16 +9,6 @@ An enterprise-grade, end-to-end Machine Learning Clinical Decision Support Syste
 
 ---
 
-## 👨‍💻 Student Particulars
-- **Student Name:** Masoom Anis
-- **Roll Number:** 63
-- **Batch:** B4 | **Section:** A2
-- **Department:** Computer Science & Engineering
-- **Course:** Machine Learning Lab (24CS01TH0501)
-- **Institution:** Department of CSE, University College of Engineering
-
----
-
 ## 🎯 Project Highlights & Rubric Fulfillment (15 Marks)
 
 | Evaluation Rubric | Marks | Implementation in Project |

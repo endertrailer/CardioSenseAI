@@ -27,16 +27,6 @@ st.markdown("""
         color: #475569;
         margin-bottom: 1.2rem;
     }
-    .student-badge {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-        color: white;
-        padding: 10px 18px;
-        border-radius: 8px;
-        font-size: 0.88rem;
-        font-weight: 600;
-        margin-bottom: 1.2rem;
-        display: inline-block;
-    }
     .metric-card {
         background-color: #f8fafc;
         border: 1px solid #e2e8f0;
@@ -93,16 +83,6 @@ with st.sidebar:
     st.caption("Clinical Decision Support & Cardiac Risk Prediction Engine")
     st.markdown("---")
     
-    st.markdown("""
-    **Developer Particulars:**
-    - **Name:** Masoom Anis
-    - **Roll No:** 63
-    - **Section:** A2 | **Batch:** B4
-    - **Department:** Computer Science & Eng.
-    - **Course:** Machine Learning (24CS01TH0501)
-    """)
-    st.markdown("---")
-    
     selected_model = st.selectbox(
         "⚡ Active Prediction Model:",
         options=list(predictor.all_models.keys()),
@@ -119,8 +99,7 @@ tabs = st.tabs([
     "🩺 Patient Assessment",
     "📁 Batch Screening",
     "📊 Exploratory Data Analytics",
-    "🏆 Model Benchmarks",
-    "📘 Project Documentation & Viva"
+    "🏆 Model Benchmarks"
 ])
 
 # -------------------------------------------------------------
@@ -348,26 +327,3 @@ with tabs[3]:
     if os.path.exists(cm_plot):
         st.image(cm_plot, use_container_width=True)
 
-# -------------------------------------------------------------
-# TAB 5: DOCUMENTATION & VIVA PREPARATION
-# -------------------------------------------------------------
-with tabs[4]:
-    st.subheader("Project Defense & Viva Voce Preparation Guide")
-    st.markdown("""
-    ### 🎓 Mini Project Evaluation Criteria Justification (15 Marks):
-    1. **Data Cleaning & Splitting (3 Marks):**
-       - Imputed missing clinical data using median estimators to prevent skewness from physiological outliers.
-       - Applied Interquartile Range (IQR) trimming/capping ($Q_1 - 1.5 \times IQR, Q_3 + 1.5 \times IQR$) to physiological readings (e.g. extreme BP or cholesterol).
-       - Executed **Stratified 70-15-15 Train-Validation-Test Splitting** guaranteeing identical 47% positive prevalence across all subsets and zero data leakage.
-    2. **State-of-the-Art Models Comparison & Performance Analytics (4 Marks):**
-       - Benchmarked 5 diverse architectures: Logistic Regression, Random Forest, Gradient Boosting, SVM, and Multi-Layer Perceptron (Neural Network).
-       - Evaluated Accuracy, Precision, Recall / Sensitivity, Specificity, F1-Score, ROC-AUC, and 5-Fold Stratified Cross-Validation.
-       - Neural Network (MLP) achieved the highest F1-Score (**95.71%**) and Test Accuracy (**96.10%**).
-    3. **UI Deployment & Cross-Platform Accessibility (4 Marks):**
-       - Fully responsive Streamlit web application running over standard HTTP, supporting Desktop, Tablet, and Mobile viewport resolutions.
-       - Integrated single-patient clinical guidance and population-level batch CSV triage.
-    4. **Code Quality, GitHub Repo, Report Writing (4 Marks):**
-       - Production-grade modular Python package structure (`src/data_preprocessing.py`, `src/train_and_evaluate.py`, `src/predict.py`, `app.py`).
-       - Git repository initialized with clean history and comprehensive documentation.
-       - 10-page academic report compiled with literature review, methodology, and IEEE citations.
-    """)
