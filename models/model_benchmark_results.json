@@ -1,0 +1,112 @@
+{
+    "Logistic Regression": {
+        "Accuracy": 95.45,
+        "Precision": 98.51,
+        "Recall (Sensitivity)": 91.67,
+        "Specificity": 98.78,
+        "F1-Score": 94.96,
+        "ROC-AUC": 0.9963,
+        "PR-AUC": 0.9959,
+        "CV_Accuracy_Mean": 95.26,
+        "CV_Accuracy_Std": 1.18,
+        "CV_F1_Mean": 94.91,
+        "Confusion_Matrix": [
+            [
+                81,
+                1
+            ],
+            [
+                6,
+                66
+            ]
+        ]
+    },
+    "Random Forest": {
+        "Accuracy": 90.26,
+        "Precision": 91.3,
+        "Recall (Sensitivity)": 87.5,
+        "Specificity": 92.68,
+        "F1-Score": 89.36,
+        "ROC-AUC": 0.9702,
+        "PR-AUC": 0.9666,
+        "CV_Accuracy_Mean": 88.98,
+        "CV_Accuracy_Std": 2.12,
+        "CV_F1_Mean": 88.2,
+        "Confusion_Matrix": [
+            [
+                76,
+                6
+            ],
+            [
+                9,
+                63
+            ]
+        ]
+    },
+    "Gradient Boosting": {
+        "Accuracy": 93.51,
+        "Precision": 95.59,
+        "Recall (Sensitivity)": 90.28,
+        "Specificity": 96.34,
+        "F1-Score": 92.86,
+        "ROC-AUC": 0.9792,
+        "PR-AUC": 0.9773,
+        "CV_Accuracy_Mean": 90.1,
+        "CV_Accuracy_Std": 1.21,
+        "CV_F1_Mean": 89.33,
+        "Confusion_Matrix": [
+            [
+                79,
+                3
+            ],
+            [
+                7,
+                65
+            ]
+        ]
+    },
+    "Support Vector Machine": {
+        "Accuracy": 94.81,
+        "Precision": 97.06,
+        "Recall (Sensitivity)": 91.67,
+        "Specificity": 97.56,
+        "F1-Score": 94.29,
+        "ROC-AUC": 0.9929,
+        "PR-AUC": 0.992,
+        "CV_Accuracy_Mean": 94.28,
+        "CV_Accuracy_Std": 1.11,
+        "CV_F1_Mean": 93.86,
+        "Confusion_Matrix": [
+            [
+                80,
+                2
+            ],
+            [
+                6,
+                66
+            ]
+        ]
+    },
+    "Neural Network (MLP)": {
+        "Accuracy": 96.1,
+        "Precision": 98.53,
+        "Recall (Sensitivity)": 93.06,
+        "Specificity": 98.78,
+        "F1-Score": 95.71,
+        "ROC-AUC": 0.9953,
+        "PR-AUC": 0.995,
+        "CV_Accuracy_Mean": 94.7,
+        "CV_Accuracy_Std": 1.5,
+        "CV_F1_Mean": 94.24,
+        "Confusion_Matrix": [
+            [
+                81,
+                1
+            ],
+            [
+                5,
+                67
+            ]
+        ]
+    }
+}
