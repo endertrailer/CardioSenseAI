@@ -86,7 +86,7 @@ with st.sidebar:
     selected_model = st.selectbox(
         "⚡ Active Prediction Model:",
         options=list(predictor.all_models.keys()),
-        index=4  # Default: Neural Network (MLP)
+        index=0  # Default: Logistic Regression (Champion)
     )
     st.info(f"Active: **{selected_model}**")
 
@@ -280,6 +280,11 @@ with tabs[2]:
     corr_plot = '/home/endertrailer/ml/static/plots/correlation_matrix.png'
     if os.path.exists(corr_plot):
         st.image(corr_plot, use_container_width=True)
+
+    st.markdown("##### 📌 Unsupervised Patient Phenotype Clustering via K-Means (Practical 6)")
+    kmeans_plot = '/home/endertrailer/ml/static/plots/kmeans_clustering.png'
+    if os.path.exists(kmeans_plot):
+        st.image(kmeans_plot, use_container_width=True)
 
 # -------------------------------------------------------------
 # TAB 4: SOTA MODEL BENCHMARKS & ANALYTICS

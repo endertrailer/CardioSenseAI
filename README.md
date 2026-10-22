@@ -33,14 +33,15 @@ An enterprise-grade, end-to-end Machine Learning Clinical Decision Support Syste
                                                 │
                                                 ▼
                                     [ Model Training & CV ]
-                                  ├── Logistic Regression (L2)
-                                  ├── Random Forest (Ensemble)
-                                  ├── Gradient Boosting (Ensemble)
-                                  ├── Support Vector Machine (RBF)
-                                  └── Multi-Layer Perceptron (Neural Net)
+                                  ├── Logistic Regression (Practical 3)
+                                  ├── k-Nearest Neighbors (Uniform, k=5) (Practical 4)
+                                  ├── k-Nearest Neighbors (Distance-Weighted, k=7) (Practical 4)
+                                  ├── Decision Tree (ID3 / Information Gain) (Practical 5)
+                                  ├── Decision Tree (CART / Gini Impurity) (Practical 5)
+                                  └── K-Means Patient Clustering (Practical 6)
                                                 │
                                                 ▼
-                                 [ SOTA Evaluation & Analytics ]
+                                 [ Performance Evaluation & Analytics ]
                                   ├── ROC-AUC & PR-AUC Curves
                                   ├── Sensitivity / Recall Optimization
                                   └── 5-Fold Stratified Cross-Validation
@@ -54,24 +55,24 @@ An enterprise-grade, end-to-end Machine Learning Clinical Decision Support Syste
                                 [ Cross-Platform Web Application ]
                                   ├── Single Patient Diagnostic Risk Meter
                                   ├── Population Cohort CSV Batch Triage
-                                  └── Live SOTA Model Benchmarking
+                                  └── Live Model Benchmarking & Analytics
 ```
 
 ---
 
-## 📊 State-of-the-Art Model Benchmark Results
+## 📊 Classroom Curriculum Model Benchmark Results
 
 Evaluated on an independent, hold-out clinical test partition ($N = 154$):
 
-| Model Architecture | Accuracy | Precision | Recall (Sensitivity) | Specificity | F1-Score | ROC-AUC | 5-Fold CV Accuracy |
+| Model Architecture (Classroom Practical) | Accuracy | Precision | Recall (Sensitivity) | Specificity | F1-Score | ROC-AUC | 5-Fold CV Accuracy |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Neural Network (MLP)** 🏆 | **96.10%** | **98.53%** | **93.06%** | **98.78%** | **95.71%** | **0.9953** | **94.70% ± 1.50%** |
-| **Logistic Regression** | 95.45% | 98.51% | 91.67% | 98.78% | 94.96% | 0.9963 | 95.26% ± 1.18% |
-| **Support Vector Machine (RBF)** | 94.81% | 97.06% | 91.67% | 97.56% | 94.29% | 0.9929 | 94.28% ± 1.11% |
-| **Gradient Boosting** | 93.51% | 95.59% | 90.28% | 96.34% | 92.86% | 0.9792 | 90.10% ± 1.21% |
-| **Random Forest** | 90.26% | 91.30% | 87.50% | 92.68% | 89.36% | 0.9702 | 88.98% ± 2.12% |
+| **Logistic Regression (Practical 3)** 🏆 | **95.45%** | **98.51%** | **91.67%** | **98.78%** | **94.96%** | **0.9963** | **95.26% ± 1.18%** |
+| **k-NN (Distance-Weighted, k=7) (Practical 4)** | 87.66% | 88.71% | 76.39% | 91.46% | 85.27% | 0.9549 | 81.87% ± 2.53% |
+| **k-NN (Uniform, k=5) (Practical 4)** | 86.36% | 88.52% | 75.00% | 91.46% | 83.72% | 0.9494 | 81.87% ± 1.82% |
+| **Decision Tree (ID3 / Information Gain) (Practical 5)** | 81.82% | 83.61% | 70.83% | 87.80% | 78.46% | 0.8651 | 81.87% ± 0.99% |
+| **Decision Tree (CART / Gini Impurity) (Practical 5)** | 78.57% | 79.10% | 73.61% | 82.93% | 76.26% | 0.8249 | 81.18% ± 2.64% |
 
-> **Clinical Finding:** In medical triage, **Recall (Sensitivity)** is prioritized over raw accuracy because a False Negative (failing to diagnose a high-risk cardiac patient) can be life-threatening. The Neural Network (MLP) achieved the highest Recall (**93.06%**) and overall F1-Score (**95.71%**).
+> **Clinical Finding:** In medical triage, **Recall (Sensitivity)** is prioritized over raw accuracy because a False Negative (failing to diagnose a high-risk cardiac patient) can be life-threatening. **Logistic Regression** achieved the highest Recall (**91.67%**), overall F1-Score (**94.96%**), and highest generalization stability under 5-Fold Cross-Validation (**95.26%**). In addition, **K-Means Clustering** (Practical 6) successfully segments patients into distinct clinical risk cohorts.
 
 ---
 

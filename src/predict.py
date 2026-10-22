@@ -44,7 +44,7 @@ class HeartDiseasePredictor:
             'risk_level': risk_level,
             'risk_color': color,
             'clinical_recommendation': recommendation,
-            'model_used': model_name if model_name else 'Champion Neural Network (MLP)'
+            'model_used': model_name if model_name else 'Champion Model (Logistic Regression)'
         }
 
     def predict_batch(self, input_df: pd.DataFrame, model_name: str = None) -> pd.DataFrame:

@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from sklearn.svm import SVC
-from sklearn.neural_network import MLPClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.cluster import KMeans
 
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score,
@@ -38,13 +38,14 @@ def train_and_benchmark(processed_dir, models_dir, plots_dir):
 
     feature_names = list(X_train.columns)
 
-    print("--- 2. INITIALIZING 5 STATE-OF-THE-ART CLASSIFIERS ---")
+    print("--- 2. INITIALIZING CLASSROOM CURRICULUM CLASSIFIERS ---")
+    # All models strictly from Lab Practicals (Practical 3: Linear/Logistic, Practical 4: k-NN, Practical 5: Decision Tree ID3/CART)
     models = {
         'Logistic Regression': LogisticRegression(C=1.0, max_iter=1000, random_state=42),
-        'Random Forest': RandomForestClassifier(n_estimators=120, max_depth=7, min_samples_split=4, random_state=42),
-        'Gradient Boosting': GradientBoostingClassifier(n_estimators=130, learning_rate=0.08, max_depth=4, random_state=42),
-        'Support Vector Machine': SVC(C=1.5, kernel='rbf', probability=True, random_state=42),
-        'Neural Network (MLP)': MLPClassifier(hidden_layer_sizes=(64, 32), activation='relu', max_iter=500, random_state=42)
+        'k-Nearest Neighbors (Uniform, k=5)': KNeighborsClassifier(n_neighbors=5, weights='uniform'),
+        'k-Nearest Neighbors (Distance-Weighted, k=7)': KNeighborsClassifier(n_neighbors=7, weights='distance'),
+        'Decision Tree (ID3 / Information Gain)': DecisionTreeClassifier(criterion='entropy', max_depth=6, min_samples_split=4, random_state=42),
+        'Decision Tree (CART / Gini Impurity)': DecisionTreeClassifier(criterion='gini', max_depth=6, min_samples_split=4, random_state=42)
     }
 
     results = {}
@@ -171,27 +172,44 @@ def train_and_benchmark(processed_dir, models_dir, plots_dir):
     plt.savefig(os.path.join(plots_dir, 'confusion_matrices.png'), dpi=300)
     plt.close()
 
-    # Figure 5: Feature Importance (Random Forest & Gradient Boosting)
-    rf_imp = fitted_models['Random Forest'].feature_importances_
-    gb_imp = fitted_models['Gradient Boosting'].feature_importances_
+    # Figure 5: Feature Importance (Decision Tree CART vs ID3 from Practical 5)
+    cart_imp = fitted_models['Decision Tree (CART / Gini Impurity)'].feature_importances_
+    id3_imp = fitted_models['Decision Tree (ID3 / Information Gain)'].feature_importances_
     imp_df = pd.DataFrame({
         'Feature': feature_names,
-        'Random Forest': rf_imp,
-        'Gradient Boosting': gb_imp
-    }).sort_values(by='Random Forest', ascending=True)
+        'CART (Gini)': cart_imp,
+        'ID3 (Entropy)': id3_imp
+    }).sort_values(by='CART (Gini)', ascending=True)
 
     fig, ax = plt.subplots(figsize=(9, 6))
     y_pos = np.arange(len(imp_df))
     height = 0.35
-    ax.barh(y_pos - height/2, imp_df['Random Forest'], height, label='Random Forest', color='#2563eb')
-    ax.barh(y_pos + height/2, imp_df['Gradient Boosting'], height, label='Gradient Boosting', color='#10b981')
+    ax.barh(y_pos - height/2, imp_df['CART (Gini)'], height, label='Decision Tree (CART - Gini)', color='#2563eb')
+    ax.barh(y_pos + height/2, imp_df['ID3 (Entropy)'], height, label='Decision Tree (ID3 - Entropy)', color='#10b981')
     ax.set_yticks(y_pos)
     ax.set_yticklabels(imp_df['Feature'])
-    ax.set_xlabel('Relative Feature Importance (Gini / Friedman Gain)')
-    ax.set_title('Top Clinical Predictors of Cardiovascular Risk', fontsize=13, fontweight='bold')
+    ax.set_xlabel('Relative Feature Importance (Information Gain / Gini Index)')
+    ax.set_title('Top Clinical Predictors via Decision Tree Analysis (Practical 5)', fontsize=13, fontweight='bold')
     ax.legend()
     plt.tight_layout()
     plt.savefig(os.path.join(plots_dir, 'feature_importance.png'), dpi=300)
+    plt.close()
+
+    # Figure 6: Unsupervised K-Means Patient Risk Phenotype Clustering (Practical 6)
+    kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+    cluster_labels = kmeans.fit_predict(X_train)
+    plt.figure(figsize=(8, 6))
+    scatter = plt.scatter(X_train['age'], X_train['max_heart_rate'], c=cluster_labels, cmap='viridis', alpha=0.7, s=40)
+    plt.scatter(kmeans.cluster_centers_[:, feature_names.index('age')], 
+                kmeans.cluster_centers_[:, feature_names.index('max_heart_rate')],
+                c='red', marker='X', s=200, label='Cluster Centroids')
+    plt.xlabel('Standardized Age', fontsize=11)
+    plt.ylabel('Standardized Max Heart Rate', fontsize=11)
+    plt.title('Unsupervised K-Means Patient Phenotype Clustering (Practical 6)', fontsize=13, fontweight='bold')
+    plt.legend()
+    plt.colorbar(scatter, label='K-Means Patient Cluster')
+    plt.tight_layout()
+    plt.savefig(os.path.join(plots_dir, 'kmeans_clustering.png'), dpi=300)
     plt.close()
 
     print("[SUCCESS] Training, evaluation, serialization, and high-res plotting completed!")
