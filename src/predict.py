@@ -3,7 +3,8 @@ import joblib
 import pandas as pd
 import numpy as np
 
-MODELS_DIR = '/home/endertrailer/ml/models'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODELS_DIR = os.path.join(BASE_DIR, 'models')
 
 class HeartDiseasePredictor:
     def __init__(self, models_dir=MODELS_DIR):
@@ -52,6 +53,16 @@ class HeartDiseasePredictor:
         input_df: dataframe containing patient records
         """
         df_features = input_df[self.feature_names].copy()
+        
+        # Clinical Imputation (Practical 1): Handle missing values (NaN) with reference clinical medians
+        default_medians = {
+            'age': 54.0, 'sex': 1.0, 'chest_pain_type': 1.0, 'resting_bp': 131.0,
+            'cholesterol': 247.0, 'fasting_bs': 0.0, 'rest_ecg': 1.0,
+            'max_heart_rate': 167.0, 'exercise_angina': 0.0, 'st_depression': 0.7,
+            'st_slope': 1.0, 'num_major_vessels': 0.0, 'thalassemia': 2.0
+        }
+        df_features = df_features.fillna(default_medians)
+        
         df_scaled = pd.DataFrame(self.scaler.transform(df_features), columns=self.feature_names)
 
         clf = self.all_models.get(model_name, self.model) if model_name else self.model

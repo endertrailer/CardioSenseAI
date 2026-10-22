@@ -5,6 +5,8 @@ import numpy as np
 import json
 from src.predict import HeartDiseasePredictor
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Page Configuration for Cross-Platform Desktop & Mobile Responsiveness
 st.set_page_config(
     page_title="CardioSense AI - Clinical Decision Support System",
@@ -67,7 +69,7 @@ def load_predictor():
 
 @st.cache_data
 def load_benchmark_results():
-    path = '/home/endertrailer/ml/models/model_benchmark_results.json'
+    path = os.path.join(BASE_DIR, 'models', 'model_benchmark_results.json')
     if os.path.exists(path):
         with open(path, 'r') as f:
             return json.load(f)
@@ -217,7 +219,7 @@ with tabs[1]:
     st.markdown("Upload a patient cohort CSV file to perform rapid multi-patient inference and risk stratification:")
 
     # Provide sample download
-    raw_csv = '/home/endertrailer/ml/data/raw/heart_disease_clinical.csv'
+    raw_csv = os.path.join(BASE_DIR, 'data', 'raw', 'heart_disease_clinical.csv')
     if os.path.exists(raw_csv):
         sample_df = pd.read_csv(raw_csv).head(10).drop(columns=['target'])
         st.download_button(
@@ -266,23 +268,23 @@ with tabs[2]:
     eda_col1, eda_col2 = st.columns(2)
     with eda_col1:
         st.markdown("##### 📌 Diagnosis Class Balance")
-        target_plot = '/home/endertrailer/ml/static/plots/target_distribution.png'
+        target_plot = os.path.join(BASE_DIR, 'static', 'plots', 'target_distribution.png')
         if os.path.exists(target_plot):
             st.image(target_plot, use_container_width=True)
 
     with eda_col2:
         st.markdown("##### 📌 Key Clinical Predictors (Feature Importance)")
-        feat_plot = '/home/endertrailer/ml/static/plots/feature_importance.png'
+        feat_plot = os.path.join(BASE_DIR, 'static', 'plots', 'feature_importance.png')
         if os.path.exists(feat_plot):
             st.image(feat_plot, use_container_width=True)
 
     st.markdown("##### 📌 Comprehensive Clinical Feature Correlation Heatmap")
-    corr_plot = '/home/endertrailer/ml/static/plots/correlation_matrix.png'
+    corr_plot = os.path.join(BASE_DIR, 'static', 'plots', 'correlation_matrix.png')
     if os.path.exists(corr_plot):
         st.image(corr_plot, use_container_width=True)
 
     st.markdown("##### 📌 Unsupervised Patient Phenotype Clustering via K-Means (Practical 6)")
-    kmeans_plot = '/home/endertrailer/ml/static/plots/kmeans_clustering.png'
+    kmeans_plot = os.path.join(BASE_DIR, 'static', 'plots', 'kmeans_clustering.png')
     if os.path.exists(kmeans_plot):
         st.image(kmeans_plot, use_container_width=True)
 
@@ -312,23 +314,23 @@ with tabs[3]:
     g_col1, g_col2 = st.columns(2)
     with g_col1:
         st.markdown("##### 📈 Receiver Operating Characteristic (ROC) Curves")
-        roc_plot = '/home/endertrailer/ml/static/plots/roc_curves.png'
+        roc_plot = os.path.join(BASE_DIR, 'static', 'plots', 'roc_curves.png')
         if os.path.exists(roc_plot):
             st.image(roc_plot, use_container_width=True)
 
     with g_col2:
         st.markdown("##### 📉 Precision-Recall (PR) Curves")
-        pr_plot = '/home/endertrailer/ml/static/plots/pr_curves.png'
+        pr_plot = os.path.join(BASE_DIR, 'static', 'plots', 'pr_curves.png')
         if os.path.exists(pr_plot):
             st.image(pr_plot, use_container_width=True)
 
     st.markdown("##### 📊 Comparative Bar Chart across All Evaluation Metrics")
-    bar_plot = '/home/endertrailer/ml/static/plots/model_metrics_barchart.png'
+    bar_plot = os.path.join(BASE_DIR, 'static', 'plots', 'model_metrics_barchart.png')
     if os.path.exists(bar_plot):
         st.image(bar_plot, use_container_width=True)
 
     st.markdown("##### 🟦 Confusion Matrix Grid for All 5 Tested Classifiers")
-    cm_plot = '/home/endertrailer/ml/static/plots/confusion_matrices.png'
+    cm_plot = os.path.join(BASE_DIR, 'static', 'plots', 'confusion_matrices.png')
     if os.path.exists(cm_plot):
         st.image(cm_plot, use_container_width=True)
 
